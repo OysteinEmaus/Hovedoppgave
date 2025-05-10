@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Hovedoppgave.Models;
-using Hovedoppgave.Services;
+using Hovedoppgave_2.Server.Models;
+using Hovedoppgave_2.Server.Services;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,8 +1,8 @@
 ﻿using Hovedoppgave_2.Server.Models;
 using System;
 using System.Threading.Tasks;
-using Hovedoppgave.Data;
-using Hovedoppgave.Models;
+using Hovedoppgave_2.Server.Data;
+using Hovedoppgave_2.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hovedoppgave_2.Server.Services

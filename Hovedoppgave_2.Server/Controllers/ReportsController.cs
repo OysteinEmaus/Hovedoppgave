@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Hovedoppgave.Models;
-using Hovedoppgave.Services;
+using Hovedoppgave_2.Server.Models;
+using Hovedoppgave_2.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

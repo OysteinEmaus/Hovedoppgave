@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Hovedoppgave.Data;
-using Hovedoppgave.Models;
+using Hovedoppgave_2.Server.Data;
+using Hovedoppgave_2.Server.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
