@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Hovedoppgave_2.Server.Models;
 using Hovedoppgave_2.Server.Services;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hovedoppgave_2.Server.Controllers
@@ -19,7 +18,7 @@ namespace Hovedoppgave_2.Server.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register(RegisterRequest request)
+        public async Task<ActionResult> Register(Hovedoppgave_2.Server.Models.RegisterRequest request) // Endret for å spesifikk bruke registerrequest i Models
         {
             try
             {
