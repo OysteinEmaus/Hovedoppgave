@@ -8,11 +8,22 @@ using Microsoft.IdentityModel.Tokens;
 using Hovedoppgave_2.Server.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseUrls("http://localhost:5000");
 
 // Konfigurere database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 34)),
+        mySqlOptions => mySqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(10),
+            errorNumbersToAdd: null
+        )
+    ));
 
 // Konfigurere services
 builder.Services.AddScoped<TokenService>();
@@ -53,7 +64,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Konfigurere middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
