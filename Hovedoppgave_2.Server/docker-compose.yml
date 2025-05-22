@@ -1,0 +1,52 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-report
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - report-api
+    networks:
+      - api-network
+
+  report-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hovedoppgave-api
+    ports:
+      - "5001:5000"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=report-db;Port=3306;Database=report-db;User=report-api;Password=securepass;
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - api-network
+
+  db:
+    image: mysql:8.0
+    container_name: report-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: securepass
+      MYSQL_DATABASE: report-db
+      MYSQL_USER: report-api
+      MYSQL_PASSWORD: securepass
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - api-network
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+
+networks:
+  api-network:
+    driver: bridge
