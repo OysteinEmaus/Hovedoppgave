@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Hovedoppgave_2.Server.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
 // Konfigurere database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
