@@ -1,51 +1,38 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+//import av sider og routing, med en 404 fallback dersom det mislykkes
+import Login from './pages/Login';
+import Home from './pages/Home';
+import Skademelding from './pages/Skademelding';
+import Pasienthendelse from './pages/Pasienthendelse';
+import Forbedringsforslag from './pages/Forbedringsforslag';
+import Takk from './pages/takk';
 
 function App() {
-    const [forecasts, setForecasts] = useState();
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/skademelding" element={<Skademelding />} />
+        <Route path="/pasienthendelse" element={<Pasienthendelse />} />
+        <Route path="/forbedringsforslag" element={<Forbedringsforslag />} />
+        <Route path="/takk" element={<Takk />} />
 
-    useEffect(() => {
-        populateWeatherData();
-    }, []);
-
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <table className="table table-striped" aria-labelledby="tableLabel">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>;
-
-    return (
-        <div>
-            <h1 id="tableLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
-        </div>
-    );
-    
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        if (response.ok) {
-            const data = await response.json();
-            setForecasts(data);
-        }
-    }
+        {/* 404 fallback */}
+        <Route
+          path="*"
+          element={
+            <div className="min-h-screen flex items-center justify-center text-center p-8">
+              <div>
+                <h1 className="text-4xl font-bold text-gray-700 mb-4">404 – Siden finnes ikke</h1>
+                <a href="/" className="text-blue-600 underline">Tilbake til forsiden</a>
+              </div>
+            </div>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
